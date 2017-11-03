@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>后台管理系统</title>
+    <link href="__BOOTSTRAP__/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="__PLUGINS__/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+    <link href="__ASSETS__/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="__ASSETS__/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="__ASSETS__/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="__ASSETS__/css/icons.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__ASSETS__/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="__ASSETS__/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="__ASSETS__/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    {block name="css"}{/block}
+</head>
+
+<body>
+<header class="header navbar navbar-fixed-top" role="banner">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li class="nav-toggle">
+                <a href="javascript:void(0);" title="">
+                    <i class="icon-reorder">
+                    </i>
+                </a>
+            </li>
+        </ul>
+        <a class="navbar-brand" href="index.html">
+            <img src="__ASSETS__/img/logo.png" alt="logo" />
+            <strong>
+                Me
+            </strong>
+            Admin
+        </a>
+        <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom"
+           data-original-title="Toggle navigation">
+            <i class="icon-reorder">
+            </i>
+        </a>
+        <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
+            <li>
+                <a href="#">
+                    控制台
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown user">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-male">
+                    </i>
+                    <span class="username">
+                {$adminInfo.account}
+              </span>
+                    <i class="icon-caret-down small">
+                    </i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="pages_user_profile.html"><i class="icon-user"></i>个人信息</a>
+                    </li>
+                    <li>
+                        <a href="/admin/login/logout"><i class="icon-key"></i>退出</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="user">
+                <a href="/admin/login/logout" class="dropdown-toggle"><i class="icon-signout"></i><span class="username">退出登录</span></a>
+            </li>
+        </ul>
+    </div>
+</header>
+<div id="container">
+    <div id="sidebar" class="sidebar-fixed">
+        <div id="sidebar-content">
+            <form class="sidebar-search">
+                <div class="input-box">
+                    <button type="submit" class="submit">
+                        <i class="icon-search">
+                        </i>
+                    </button>
+                    <span>
+                <input type="text" placeholder="Search...">
+              </span>
+                </div>
+            </form>
+            <div class="sidebar-search-results">
+                <i class="icon-remove close">
+                </i>
+                <div class="title">
+                    Documents
+                </div>
+                <ul class="notifications">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <div class="col-left">
+                    <span class="label label-info">
+                      <i class="icon-file-text">
+                      </i>
+                    </span>
+                            </div>
+                            <div class="col-right with-margin">
+                    <span class="message">
+                      <strong>
+                        {$adminInfo.account}
+                      </strong>
+                      received $1.527,32
+                    </span>
+                                <span class="time">
+                      finances.xls
+                    </span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <div class="col-left">
+                    <span class="label label-success">
+                      <i class="icon-file-text">
+                      </i>
+                    </span>
+                            </div>
+                            <div class="col-right with-margin">
+                    <span class="message">
+                      My name is
+                      <strong>
+                        John Doe
+                      </strong>
+                      ...
+                    </span>
+                                <span class="time">
+                      briefing.docx
+                    </span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="title">
+                    Persons
+                </div>
+                <ul class="notifications">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <div class="col-left">
+                    <span class="label label-danger">
+                      <i class="icon-female">
+                      </i>
+                    </span>
+                            </div>
+                            <div class="col-right with-margin">
+                    <span class="message">
+                      Jane
+                      <strong>
+                        Doe
+                      </strong>
+                    </span>
+                                <span class="time">
+                      21 years old
+                    </span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul id="nav">
+                {if condition="isset($menulist)"}
+                {volist name="menulist" id="menus"}
+                {if condition="in_array($menuid,$menus.current)"}
+                <li class="current open">
+                {else/}
+                <li>
+                {/if}
+                    {if condition="isset($menus._child)"}
+                    <a href="javascript:void(0);">
+                    {else/}
+                     <a href="{$menu.url}">
+                     {/if}
+                        <i class="icon-list-ol"></i>{$menus.name}
+                    </a>
+                    {if condition="isset($menus._child)"}
+                    <ul class="sub-menu">
+                        {volist name="$menus._child" id="cmenus"}
+                        {if condition="in_array($menuid,$cmenus.current)"}
+                        <li class="current">
+                            {else/}
+                        <li>
+                            {/if}
+                            {if condition="isset($cmenus._child)"}
+                            <a href="javascript:void(0);" >
+                                {else/}
+                                <a href="{$cmenus.url}">
+                                {/if}
+                                <i class="icon-cogs"></i>{$cmenus.name}<span class="arrow"></span>
+                            </a>
+                            {if condition="isset($cmenus._child)"}
+                            <ul class="sub-menu">
+                                {volist name="$cmenus._child" id="ccmenu"}
+                                {if condition="in_array($menuid,$ccmenu.current)"}
+                                <li class="current open-default">
+                                {else/}
+                                <li>
+                                {/if}
+                                    {if condition="isset($ccmenu._child)"}
+                                    <a href="javascript:void(0);">
+                                    {else/}
+                                    <a href="{$ccmenu.url}">
+                                    {/if}
+                                        <i class="icon-user"></i>{$ccmenu.name}<span class="arrow"></span>
+                                    </a>
+                                </li>
+                                {/volist}
+                            </ul>
+                            {/if}
+                        </li>
+                        {/volist}
+                    </ul>
+                    {/if}
+                </li>
+                {/volist}
+                {/if}
+            </ul>
+            <div class="sidebar-title">
+            <span>
+              Notifications
+            </span>
+            </div>
+            <ul class="notifications demo-slide-in">
+                <li style="display: none;">
+                    <div class="col-left">
+                <span class="label label-danger">
+                  <i class="icon-warning-sign">
+                  </i>
+                </span>
+                    </div>
+                    <div class="col-right with-margin">
+                <span class="message">
+                  Server
+                  <strong>
+                    #512
+                  </strong>
+                  crashed.
+                </span>
+                        <span class="time">
+                  few seconds ago
+                </span>
+                    </div>
+                </li>
+                <li style="display: none;">
+                    <div class="col-left">
+                <span class="label label-info">
+                  <i class="icon-envelope">
+                  </i>
+                </span>
+                    </div>
+                    <div class="col-right with-margin">
+                <span class="message">
+                  <strong>
+                    John
+                  </strong>
+                  sent you a message
+                </span>
+                        <span class="time">
+                  few second ago
+                </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-left">
+                <span class="label label-success">
+                  <i class="icon-plus">
+                  </i>
+                </span>
+                    </div>
+                    <div class="col-right with-margin">
+                <span class="message">
+                  <strong>
+                    Emma
+                  </strong>
+                  's account was created
+                </span>
+                        <span class="time">
+                  4 hours ago
+                </span>
+                    </div>
+                </li>
+            </ul>
+            <div class="sidebar-widget align-center">
+                <div class="btn-group" data-toggle="buttons" id="theme-switcher">
+                    <label class="btn active">
+                        <input type="radio" name="theme-switcher" data-theme="bright">
+                        <i class="icon-sun">
+                        </i>
+                        Bright
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="theme-switcher" data-theme="dark">
+                        <i class="icon-moon">
+                        </i>
+                        Dark
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="divider" class="resizeable">
+        </div>
+    </div>
+    <div id="content">
+        <div class="container">
+            <div class="crumbs">
+                <ul id="breadcrumbs" class="breadcrumb">
+                    <li>
+                        <i class="icon-home">
+                        </i>
+                        <a href="index.html">
+                            控制台
+                        </a>
+                    </li>
+                    <li class="current">
+                        <a href="pages_calendar.html" title="">
+                            {$crumbs}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="page-header">
+
+            </div>
+            {block name="main"}{/block}
+        </div>
+    </div>
+</div>
+{block name="js"}
+<script type="text/javascript" src="__ASSETS__/js/libs/jquery-1.10.2.min.js"></script>
+{/block}
+<script type="text/javascript" src="__BOOTSTRAP__/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+<script src="__ASSETS__/js/libs/html5shiv.js"></script>
+<![endif]-->
+<script type="text/javascript" src="__PLUGINS__/event.swipe/jquery.event.move.js"></script>
+<script type="text/javascript" src="__PLUGINS__/event.swipe/jquery.event.swipe.js"></script>
+<script type="text/javascript" src="__ASSETS__/js/libs/breakpoints.js"></script>
+<script type="text/javascript" src="__PLUGINS__/respond/respond.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/cookie/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/uniform/jquery.uniform.min.js"></script> <!--checkbox的全选-->
+<script type="text/javascript" src="__ASSETS__/js/app.js"></script>
+<script type="text/javascript" src="__ASSETS__/js/plugins.js"></script>
+<script type="text/javascript" src="__ASSETS__/js/plugins.form-components.js">
+</script>
+<script>
+    $(document).ready(function() {
+        App.init();
+        Plugins.init();
+        FormComponents.init()
+    });
+</script>
+
+
+
+
+</body>
+</html>

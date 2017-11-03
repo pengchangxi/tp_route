@@ -1,0 +1,74 @@
+{extend name='layout'/}
+{block name='main'}
+<div class="row searchrow">
+
+
+</div>
+<div class="btn-toolbar" style="width: 100%;height:30px;margin-top: 5px">
+    <font size="3">数据库列表</font>(共{$tableNum}张记录，总计{$total})
+</div>
+<table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover table-vertical-align">
+    <thead>
+    <tr>
+        <th class="checkbox-column">
+            <div class="checker"><span><input type="checkbox" class="uniform"></span></div>
+        </th>
+        <th class="align-center">数据库表</th>
+        <th class="align-center">记录条数</th>
+        <th class="align-center">占用空间</th>
+        <th class="align-center">编码</th>
+        <th class="align-center">创建时间</th>
+        <th class="align-center">备份状态</th>
+        <th class="align-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="vo" }
+    <tr>
+        <td class="checkbox-column">
+            <div class="checker">
+                <span>
+                    <input type="checkbox" name="tables[]" value="{$vo.Name}" class="uniform">
+                </span>
+            </div>
+        </td>
+        <td class="align-center">{$vo.Name}</td>
+        <td class="align-center">{$vo.Rows}</td>
+        <td class="align-center">{$vo.Data_length|format_bytes}</td>
+        <td class="align-center">{$vo.Collation}</td>
+        <td class="align-center">{$vo.Create_time}</td>
+        <td class="align-center">什么鬼</td>
+        <td class="align-center">
+            <a href="/admin/tools/optimize?tablename={$vo.Name}" class="bs-tooltip authorize" title="授权"><i class="icon-magic"></i>优化</a>
+            <a href="/admin/tools/repair?tablename={$vo.Name}" class="bs-tooltip" title="角色编辑"><i class="icon-wrench"></i>修复</a>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<nav>
+</nav>
+{/block}
+{block name='js'}
+<script type="text/javascript" src="__ASSETS__/js/libs/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/layer/2.4/layer.js"></script>
+<script type="text/javascript" >
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(){
+            $.ajax({
+                type: "GET",
+                url: '/admin/role/del?id=' + id,
+                success: function (data) {
+                    if (data.code == 1){
+                        layer.msg(data.msg, {icon: 1,time:1000});
+                        $(obj).parents("tr").remove();
+                    }else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            });
+        });
+    }
+
+</script>
+{/block}

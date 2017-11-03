@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> 页面自动中...跳转 等待时间：<?php echo($wait); ?></title>
+    <script type="text/javascript" src="__ASSETS__/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PLUGINS__/layer/2.4/layer.js"></script>
+</head>
+<body>
+<a id="href" href="<?php echo($url); ?>" style='display:none'>跳转</a>
+<script type="text/javascript">
+    $(function() {
+        var mess = "<?php echo($msg); ?>";
+        var err = "<?php echo($code); ?>";
+        var jumpurl = "<?php echo($url); ?>";
+        var waitSecond = "<?php echo($wait); ?>";
+        var suc = mess + '页面自动跳转中...<br/>等待时间:<span id="wait" style="color:red;font-size:14px;"><?php echo($wait); ?></span>秒';
+        var iconcode = 2;
+        if(err=='1'){
+            iconcode=1;
+        }
+        layer.alert(suc, {
+            icon: iconcode,
+            title: mess,
+            success: function(layer) {
+                var wait = document.getElementById('wait');
+                var href = document.getElementById('href').href;
+                var interval = setInterval(function() {
+                    var time = --wait.innerHTML;
+                    if (time <= 0) {
+                        location.href = href;
+                        clearInterval(interval);
+                    }
+                }, 1000);
+            }
+        });
+    })
+</script>
+</body>
+</html>

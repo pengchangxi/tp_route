@@ -1,0 +1,51 @@
+{extend name='layout'/}
+{block name='main'}
+
+<div class="btn-toolbar" style="width: 100%;margin-top: 5px">
+    <div class="btn-group" style="border: 1px solid #ccc;width: 100%;margin-bottom: 10px;">
+        <a href="/admin/menu/add" class="btn btn-noleft"><i class="icon-plus"></i>添加节点</a>
+    </div>
+</div>
+<table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover table-vertical-align">
+    <thead>
+    <tr>
+        <th class="align-center">ID</th>
+        <th class="align-center">节点名称</th>
+        <th class="align-center">URL</th>
+        <th class="align-center">状态</th>
+        <th class="align-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {$categories}
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination pull-right">
+
+    </ul>
+</nav>
+{/block}
+{block name='js'}
+<script type="text/javascript" src="__ASSETS__/js/libs/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PLUGINS__/layer/2.4/layer.js"></script>
+<script type="text/javascript" >
+    function menu_del(obj,id){
+        layer.confirm('确认要删除吗？',function(){
+            $.ajax({
+                type: "GET",
+                url: '/admin/menu/del?id=' + id,
+                success: function (data) {
+                    if (data.code == 1){
+                        layer.msg(data.msg, {icon: 1,time:1000});
+                        $(obj).parents("tr").remove();
+                    }else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}

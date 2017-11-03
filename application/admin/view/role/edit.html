@@ -1,0 +1,57 @@
+{{extend name='layout'/}
+{block name='main'}
+<div class="widget box" >
+    <div class="widget-header"><h4><i class="icon-reorder"></i>
+       {if condition="isset($info) && is_object($info)"}
+        编辑角色组
+        {else /}
+        新增角色组
+        {/if}
+    </h4> <a href="/admin/role/index" class="pull-right">返回列表</a></div>
+    <div class="widget-content">
+        <form class="form-horizontal row-border" method="post" role="form" action="">
+            <input type="hidden" name="id" value="{$info.id ? $info.id : ''}"/>
+            <div class="form-group">
+                <label class="col-md-2 control-label">角色名称:</label>
+                <div class="col-md-10">
+                    <input type="text" name="name" value="{$info.name ? $info.name : ''}" class="form-control input-width-xxlarge" required minlength="3" maxlength="64"  placeholder="请输入角色名称"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">状态:</label>
+                <div class="col-md-10">
+                    {if condition="isset($info) && is_object($info)"}
+                        {if condition="$info.status==1"}
+                        <label class="radio-inline"><input type="radio" name="status"  value="1" class="required" checked> 启用</label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="0" class="" > 禁用</label>
+                        {else /}
+                        <label class="radio-inline"><input type="radio" name="status"  value="1" class="required" > 启用</label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="0" class="" checked> 禁用</label>
+                        {/if}
+                    {else /}
+                    <label class="radio-inline"><input type="radio" name="status"  value="1" class="required" checked> 启用</label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="0" class="" > 禁用</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">备注:</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" name="desc">{$info.desc ? $info.desc : ''}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit"  class="btn btn-default">
+                        {if condition="isset($info)"}
+                        修改
+                        {else /}
+                        确定增加
+                        {/if}
+                    </button>
+                    <button type="reset"  class="btn btn-default">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}

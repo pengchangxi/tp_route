@@ -1,0 +1,66 @@
+{extend name="layout"/}
+{block name="main"}
+<div class="widget box" >
+    <div class="widget-header"><h4><i class="icon-reorder"></i>
+        <?php if(isset($info) && is_object($info)) :?>
+        编辑用户
+        <?php else:?>
+        新增用户
+        <?php endif;?>
+    </h4> <a href="/admin/admins/index" class="pull-right">返回列表</a></div>
+    <div class="widget-content">
+        <form class="form-horizontal row-border" method="post" role="form" action="">
+            <input type="hidden" name="id" value="{$info.id ? $info.id : ''}"/>
+            <div class="form-group">
+                <label class="col-md-2 control-label"><font color="red">*&nbsp;</font>账号:</label>
+                <div class="col-md-10"><input type="text" name="account" value="{$info.account ? $info.account : ''}" class="form-control input-width-xxlarge " required placeholder="请输入管理员登录账号"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label"><font color="red">*&nbsp;</font>姓名:</label>
+                <div class="col-md-10"><input class="form-control input-width-xxlarge " required type="text" name="realname" value="{$info.realname ? $info.realname : ''}"  placeholder="请输入管理员真实姓名"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label"><font color="red">*&nbsp;</font>手机号:</label>
+                <div class="col-md-10"><input type="phone" name="mobile" id="mobile" value="{$info.mobile ? $info.mobile : ''}" class="form-control input-width-xxlarge phone" placeholder="请输入手机号" required></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">密码:</label>
+                <div class="col-md-10"><input type="text" name="password" value="" class="form-control input-width-xxlarge" placeholder="请输入密码"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label"><font color="red">*&nbsp;</font>角色组:</label>
+                <div class="col-md-10">
+                    <select name="role_id" class="form-control input-width-medium required">
+                        <option value="">请选择角色</option>
+                        {volist name='roleList' id='vo'}
+                            {if condition="isset($info) && $vo.id==$info.role_id"}
+                            <option value="{$vo.id}"  selected>{$vo.name}</option>
+                            {else /}
+                            <option value="{$vo.id}" >{$vo.name}</option>
+                            {/if}
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">状态:</label>
+                <div class="col-md-10">
+                    <label class="radio-inline"><input type="radio" name="status" id="status1" value="1" class="required " <?php echo isset($info) && $info['status']==1 ? "checked":""; ?>> 启用</label>
+                    <label class="radio-inline"><input type="radio" name="status" id="status2" value="0" class="" <?php echo isset($info) && $info['status']==0 ? "checked":""; ?>> 禁用</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit"  class="btn btn-default">
+                        <?php if(isset($info)) :?>
+                        修改
+                        <?php else:?>
+                        确定增加
+                        <?php endif;?></button>
+                    <button type="reset"  class="btn btn-default">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}

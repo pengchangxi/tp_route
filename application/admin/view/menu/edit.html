@@ -1,0 +1,80 @@
+{extend name="layout"/}
+{block name="main"}
+<div class="widget box">
+    <div class="widget-header"><h4><i class="icon-reorder"></i>
+        <?php if(isset($info) && is_object($info)) :?>
+        编辑节点
+        <?php else:?>
+        新增节点
+        <?php endif;?>
+    </h4> <a href="/admin/menu/index" class="pull-right">返回列表</a></div>
+    <div class="widget-content">
+        <form class="form-horizontal row-border" method="post" role="form" id="addform">
+            <input type="hidden" name="id" value="{$info.id ? $info.id : ''}"/>
+            <div class="form-group">
+                <label class="col-md-2 control-label">节点名称:</label>
+                <div class="col-md-10"><input type="text" name="name" value="{$info.name ? $info.name : ''}" class="form-control input-width-large required"  placeholder="请输入节点名称..."></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">上级节点:</label>
+                <div class="col-md-10">
+                    <select name="pid" class="form-control input-width-large required">
+                        <option value="0">顶级节点</option>
+                        {$nav_trees}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">URL:</label>
+                <div class="col-md-10">
+                    <input type="text" name="url" value="{$info.url ? $info.url : ''}" class="form-control input-width-xxlarge required"  placeholder="请输入URL...类似于/model/controller/action">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">描述:</label>
+                <div class="col-md-10">
+                    <textarea name="desc" class="form-control" placeholder="简单的描述">{$info.desc ? $info.desc : ''}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">排序:</label>
+                <div class="col-md-10">
+                    <input type="number" name="list_order" value="{$info.list_order ? $info.list_order : ''}" class="form-control input-width-large"  placeholder="请输入数字 越大越靠前默认99">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">状态:</label>
+                <div class="col-md-10">
+                    <label class="radio-inline"><input type="radio" name="status"  value="1" class="required " <?php echo isset($info) && $info['status']==1 || empty($info) ? "checked":""; ?>> 启用</label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="0" class="" <?php echo isset($info) && $info['status']==0 ? "checked":""; ?>> 禁用</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">是否菜单:</label>
+                <div class="col-md-10">
+                    <label class="radio-inline"><input type="radio" name="ismenu"  value="1" class="required " <?php echo isset($info) && $info['ismenu']==1 || empty($info) ? "checked":""; ?>> 是</label>
+                    <label class="radio-inline"><input type="radio" name="ismenu"  value="0" class="" <?php echo isset($info) && $info['ismenu']==0 ? "checked":""; ?>> 否</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">是否记录操作日志:</label>
+                <div class="col-md-10">
+                    <label class="radio-inline"><input type="radio" name="islog"  value="1" class="required " <?php echo isset($info) && $info['islog']==1 ? "checked":""; ?>> 是</label>
+                    <label class="radio-inline"><input type="radio" name="islog"  value="0" class="" <?php echo isset($info) && $info['islog']==0 || empty($info) ? "checked":""; ?>> 否</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit"  class="btn btn-default">
+                        <?php if(isset($info)) :?>
+                        修改
+                        <?php else:?>
+                        添加
+                        <?php endif;?></button>
+                    <button type="reset"  class="btn btn-default">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}

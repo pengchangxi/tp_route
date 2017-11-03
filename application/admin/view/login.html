@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>用户登录页面</title>
+    <link href="__BOOTSTRAP__/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__ASSETS__/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="__ASSETS__/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="__ASSETS__/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="__ASSETS__/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="__ASSETS__/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__ASSETS__/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="__ASSETS__/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="__ASSETS__/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript" src="__ASSETS__/js/libs/jquery-1.10.2.min.js">
+    </script>
+    <script type="text/javascript" src="__BOOTSTRAP__/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript" src="__ASSETS__/js/libs/lodash.compat.min.js">
+    </script>
+    <!--[if lt IE 9]>
+    <script src="__ASSETS__/js/libs/html5shiv.js">
+    </script>
+    <![endif]-->
+    <script type="text/javascript" src="__PLUGINS__/uniform/jquery.uniform.min.js">
+    </script>
+    <script type="text/javascript" src="__PLUGINS__/validation/jquery.validate.min.js">
+    </script>
+    <script type="text/javascript" src="__PLUGINS__/nprogress/nprogress.js">
+    </script>
+    <!--<script type="text/javascript" src="__ASSETS__/js/login.js">
+    </script>-->
+    <script>
+        $(document).ready(function() {
+            Login.init()
+        });
+    </script>
+</head>
+
+<body class="login">
+<div class="logo">
+    <img src="__ASSETS__/img/logo.png" alt="logo" />
+    <strong>Me</strong>Admin
+</div>
+<div class="box">
+    <div class="content">
+        <form class="form-vertical login-form" action="/admin/login/login" method="post">
+            <h3 class="form-title">登录</h3>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="icon-user">
+                    </i>
+                    <input type="text" name="account" class="form-control" placeholder="用户名"
+                           autofocus="autofocus" value="<?php if(cookie('account')) echo cookie('account')?>"  required data-msg-required="请输入用户名."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="icon-lock">
+                    </i>
+                    <input type="password" name="password" class="form-control" placeholder="密码"
+                           value="<?php if(cookie('password')) echo cookie('password')?>"  required data-msg-required="请输入密码."/>
+                </div>
+            </div>
+            <div class="form-actions">
+                <label class="checkbox pull-left">
+                    <?php if(cookie('account')){?>
+                    <input type="checkbox" checked class="uniform" name="remember">
+                   <?php }else{ ?>
+                    <input type="checkbox" class="uniform" name="remember">
+                   <?php }?>
+                    记住密码
+                </label>
+                <button type="submit" class="submit btn btn-primary pull-right">
+                    登录
+                    <i class="icon-angle-right">
+                    </i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+
+</html>
